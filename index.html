@@ -305,14 +305,16 @@
 
     <!-- Authentication Check -->
     <script>
-        // Check authentication before loading the editor
+        // Check authentication and handle UI
         function checkAdminAccess() {
             try {
                 const session = JSON.parse(localStorage.getItem('flameAdminSession'));
 
                 if (!session || !session.authenticated || Date.now() >= session.expires) {
-                    // No valid session, redirect to login
-                    window.location.href = 'admin.html';
+                    // No valid session, redirect to login after a brief delay to allow CSS to load
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 100);
                     return false;
                 }
 
@@ -320,34 +322,42 @@
             } catch (error) {
                 // Invalid session data
                 localStorage.removeItem('flameAdminSession');
-                window.location.href = 'admin.html';
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 100);
                 return false;
             }
         }
 
-        // Check access immediately
-        if (!checkAdminAccess()) {
-            // Will redirect, don't load the rest
-        } else {
-            // Add logout functionality
-            document.addEventListener('DOMContentLoaded', () => {
-                // Add logout button to header
-                const headerNav = document.querySelector('.header-nav');
-                if (headerNav) {
-                    const logoutBtn = document.createElement('button');
-                    logoutBtn.className = 'btn btn-secondary';
-                    logoutBtn.innerHTML = '<span class="btn-icon">🚪</span> Logout';
-                    logoutBtn.title = 'Logout from admin panel';
-                    logoutBtn.onclick = () => {
-                        if (confirm('Are you sure you want to logout?')) {
-                            localStorage.removeItem('flameAdminSession');
-                            window.location.href = 'admin.html';
-                        }
-                    };
-                    headerNav.appendChild(logoutBtn);
-                }
-            });
-        }
+        // Check access when DOM is ready (not immediately)
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkAdminAccess()) {
+                // Will redirect after CSS loads
+                return;
+            }
+
+            // Add logout functionality for authenticated users
+            const headerNav = document.querySelector('.header-nav');
+            if (headerNav) {
+                const logoutBtn = document.createElement('button');
+                logoutBtn.className = 'btn btn-secondary';
+                logoutBtn.innerHTML = '<span class="btn-icon">🚪</span> Logout';
+                logoutBtn.title = 'Logout from admin panel';
+                logoutBtn.onclick = () => {
+                    if (confirm('Are you sure you want to logout?')) {
+                        localStorage.removeItem('flameAdminSession');
+                        window.location.href = 'admin.html';
+                    }
+                };
+                headerNav.appendChild(logoutBtn);
+            }
+
+            // Add admin indicator to header
+            const brandTitle = document.querySelector('.brand-title');
+            if (brandTitle) {
+                brandTitle.innerHTML += ' <span style="color: #10b981; font-size: 0.75rem; font-weight: 500;">(ADMIN)</span>';
+            }
+        });
     </script>
 
     <!-- Custom JavaScript modules -->
