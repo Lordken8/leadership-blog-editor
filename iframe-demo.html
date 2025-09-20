@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Editor Embedding Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .demo-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .demo-description {
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        .iframe-container {
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            border: none;
+            display: block;
+        }
+
+        .controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background: white;
+            color: #374151;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: #f9fafb;
+            border-color: #1e40af;
+        }
+
+        .btn.primary {
+            background: #1e40af;
+            color: white;
+            border-color: #1e40af;
+        }
+
+        .btn.primary:hover {
+            background: #1d4ed8;
+        }
+
+        .code-block {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                justify-content: center;
+            }
+        }
+
+        .content-display {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 15px;
+            min-height: 100px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leadership Blog Editor - Embedding Demo</h1>
+        <p class="subtitle">Demonstration of different embedding options for the blog editor</p>
+
+        <!-- Full Editor -->
+        <div class="demo-section">
+            <div class="demo-title">Full Editor</div>
+            <div class="demo-description">Complete editor with all features enabled</div>
+            <div class="iframe-container">
+                <iframe src="embedded.html" height="600px" id="fullEditor"></iframe>
+            </div>
+            <div class="controls">
+                <button class="btn primary" onclick="getContent('fullEditor')">Get Content</button>
+                <button class="btn" onclick="setContent('fullEditor')">Set Sample Content</button>
+                <button class="btn" onclick="clearContent('fullEditor')">Clear</button>
+            </div>
+            <div class="code-block">
+&lt;iframe src="embedded.html" width="100%" height="600px"&gt;&lt;/iframe&gt;
+            </div>
+        </div>
+
+        <!-- Minimal Editor -->
+        <div class="demo-section">
+            <div class="demo-title">Minimal Editor</div>
+            <div class="demo-description">Compact editor with essential features only</div>
+            <div class="iframe-container">
+                <iframe src="embedded.html?minimal=true&toolbar=basic&height=400px" height="400px" id="minimalEditor"></iframe>
+            </div>
+            <div class="controls">
+                <button class="btn primary" onclick="getContent('minimalEditor')">Get Content</button>
+                <button class="btn" onclick="setContent('minimalEditor')">Set Sample Content</button>
+            </div>
+            <div class="code-block">
+&lt;iframe src="embedded.html?minimal=true&toolbar=basic&height=400px" width="100%" height="400px"&gt;&lt;/iframe&gt;
+            </div>
+        </div>
+
+        <!-- Side by Side Demo -->
+        <div class="demo-section">
+            <div class="demo-title">Interactive Communication Demo</div>
+            <div class="demo-description">Demonstrates two-way communication between parent page and embedded editor</div>
+
+            <div class="grid">
+                <div>
+                    <h4>Editor</h4>
+                    <div class="iframe-container">
+                        <iframe src="embedded.html?toolbar=basic&brand=Demo%20Editor" height="400px" id="interactiveEditor"></iframe>
+                    </div>
+                    <div class="controls">
+                        <button class="btn primary" onclick="getContent('interactiveEditor')">Get Content</button>
+                        <button class="btn" onclick="setDemoContent()">Load Demo Article</button>
+                        <button class="btn" onclick="clearContent('interactiveEditor')">Clear</button>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>Content Output</h4>
+                    <div class="content-display" id="contentDisplay">Content will appear here when you click "Get Content"</div>
+                    <div class="controls">
+                        <button class="btn" onclick="copyToClipboard()">Copy JSON</button>
+                        <button class="btn" onclick="exportForFlowtrack()">Export for Flowtrack</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Styled Editor -->
+        <div class="demo-section">
+            <div class="demo-title">Custom Styled Editor</div>
+            <div class="demo-description">Editor with custom colors and branding</div>
+            <div class="iframe-container">
+                <iframe src="embedded.html?brand=Fire%20Leadership%20Editor&toolbar=full" height="500px" id="customEditor"></iframe>
+            </div>
+            <div class="code-block">
+&lt;iframe src="embedded.html?brand=Fire%20Leadership%20Editor&toolbar=full" width="100%" height="500px"&gt;&lt;/iframe&gt;
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let lastContent = null;
+
+        // Function to get content from an embedded editor
+        function getContent(editorId) {
+            const iframe = document.getElementById(editorId);
+
+            // Listen for response
+            const handleMessage = (event) => {
+                if (event.data.type === 'content') {
+                    lastContent = event.data.data;
+                    document.getElementById('contentDisplay').textContent = JSON.stringify(event.data.data, null, 2);
+                    window.removeEventListener('message', handleMessage);
+                }
+            };
+
+            window.addEventListener('message', handleMessage);
+
+            // Request content
+            iframe.contentWindow.postMessage({
+                type: 'getContent'
+            }, '*');
+        }
+
+        // Function to set content in an embedded editor
+        function setContent(editorId) {
+            const iframe = document.getElementById(editorId);
+
+            iframe.contentWindow.postMessage({
+                type: 'setContent',
+                title: 'Sample Leadership Article',
+                author: 'Fire Chief Johnson',
+                htmlContent: '<h2>Leadership in Emergency Response</h2><p>Effective leadership during emergency situations requires <strong>quick decision-making</strong> and <em>clear communication</em>.</p><h3>Key Principles</h3><ol><li>Assess the situation quickly</li><li>Communicate clearly with your team</li><li>Make decisions based on available information</li><li>Adapt as the situation evolves</li></ol><blockquote>The best leaders are those who can remain calm under pressure and inspire confidence in their team.</blockquote>'
+            }, '*');
+        }
+
+        // Function to set specific demo content
+        function setDemoContent() {
+            const iframe = document.getElementById('interactiveEditor');
+
+            iframe.contentWindow.postMessage({
+                type: 'setContent',
+                title: 'Fire Service Leadership Excellence',
+                author: 'Captain Sarah Martinez',
+                htmlContent: '<h2>Building Trust Through Leadership</h2><p>Trust is the foundation of effective fire service leadership. Without trust, teams cannot function effectively during high-stress emergency situations.</p><h3>Establishing Trust</h3><ul><li><strong>Consistency</strong> - Be reliable in your actions and decisions</li><li><strong>Competence</strong> - Demonstrate your knowledge and skills</li><li><strong>Communication</strong> - Keep your team informed and listen to their concerns</li><li><strong>Courage</strong> - Stand up for what is right, even when it\'s difficult</li></ul><h3>Maintaining Trust</h3><p>Trust, once built, must be carefully maintained through:</p><ol><li>Regular feedback and open dialogue</li><li>Accountability for mistakes</li><li>Recognition of team achievements</li><li>Continuous learning and improvement</li></ol><blockquote>"Leadership is not about being in charge. It is about taking care of those in your charge." - Simon Sinek</blockquote><p>Remember that leadership in the fire service carries the weight of life-and-death decisions. Your team must trust not only your competence but also your commitment to their safety and the mission.</p>'
+            }, '*');
+        }
+
+        // Function to clear content
+        function clearContent(editorId) {
+            const iframe = document.getElementById(editorId);
+
+            iframe.contentWindow.postMessage({
+                type: 'setContent',
+                title: '',
+                author: '',
+                htmlContent: ''
+            }, '*');
+        }
+
+        // Function to copy content to clipboard
+        function copyToClipboard() {
+            if (lastContent) {
+                navigator.clipboard.writeText(JSON.stringify(lastContent, null, 2)).then(() => {
+                    alert('Content copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            } else {
+                alert('No content to copy. Click "Get Content" first.');
+            }
+        }
+
+        // Function to export for Flowtrack.co
+        function exportForFlowtrack() {
+            if (lastContent) {
+                // Simulate the clean HTML generation for Flowtrack
+                const cleanHTML = `<article class="blog-post">
+    <header class="post-header">
+        <h1 class="post-title">${lastContent.title}</h1>
+        ${lastContent.author ? `<p class="post-author">By <span class="author-name">${lastContent.author}</span></p>` : ''}
+    </header>
+    <div class="post-content">
+        ${lastContent.htmlContent.replace(/class="[^"]*ql-[^"]*[^"]*"/g, '').replace(/\s*class\s*=\s*""\s*/g, '')}
+    </div>
+</article>`;
+
+                navigator.clipboard.writeText(cleanHTML).then(() => {
+                    alert('Clean HTML for Flowtrack.co copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            } else {
+                alert('No content to export. Click "Get Content" first.');
+            }
+        }
+
+        // Style the custom editor with CSS variables after load
+        document.getElementById('customEditor').onload = function() {
+            try {
+                const iframe = this;
+                iframe.contentWindow.postMessage({
+                    type: 'configure',
+                    config: {
+                        colors: {
+                            primary: '#dc2626',  // Fire red
+                            secondary: '#374151',
+                            accent: '#f59e0b'    // Fire orange
+                        }
+                    }
+                }, '*');
+            } catch (e) {
+                console.log('Could not configure custom colors (cross-origin restriction)');
+            }
+        };
+
+        // Listen for any messages from embedded editors
+        window.addEventListener('message', (event) => {
+            console.log('Received message from embedded editor:', event.data);
+        });
+    </script>
+</body>
+</html>

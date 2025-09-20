@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Essential meta tags for responsive design and SEO -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional blog editor for leadership and management content">
+    <meta name="author" content="Fire Leadership and Management Excellence">
+
+    <!-- Page title -->
+    <title>Leadership Blog Editor</title>
+
+    <!-- Favicon and app icons -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+    <!-- Quill.js CDN for rich text editing -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <!-- Configuration -->
+    <script src="config.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main application container -->
+    <div class="app-container">
+
+        <!-- Application header with navigation -->
+        <header class="app-header">
+            <div class="header-content">
+                <!-- Brand/Logo area -->
+                <div class="brand">
+                    <h1 class="brand-title">Leadership Blog Editor</h1>
+                    <p class="brand-subtitle">Fire Leadership and Management Excellence</p>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+
+                <!-- Main navigation actions -->
+                <nav class="header-nav" id="headerNav">
+                    <button id="newArticle" class="btn btn-secondary" title="Start a new article (Ctrl+N)">
+                        <span class="btn-icon">📄</span>
+                        New Article
+                    </button>
+                    <button id="saveArticle" class="btn btn-primary" title="Save current article (Ctrl+S)">
+                        <span class="btn-icon">💾</span>
+                        Save
+                    </button>
+                    <button id="loadArticle" class="btn btn-secondary" title="Load existing article">
+                        <span class="btn-icon">📂</span>
+                        Load
+                    </button>
+                    <button id="exportArticle" class="btn btn-secondary" title="Export article">
+                        <span class="btn-icon">📤</span>
+                        Export
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main content area with editor and sidebar -->
+        <main class="app-main">
+
+            <!-- Primary editor section -->
+            <section class="editor-section">
+                <div class="editor-container">
+
+                    <!-- Article metadata inputs -->
+                    <div class="article-meta">
+                        <input
+                            type="text"
+                            id="articleTitle"
+                            class="title-input"
+                            placeholder="Enter your article title..."
+                            maxlength="150"
+                            aria-label="Article title"
+                        >
+
+                        <div class="meta-row">
+                            <input
+                                type="text"
+                                id="articleAuthor"
+                                class="author-input"
+                                placeholder="Author name"
+                                aria-label="Author name"
+                            >
+                            <input
+                                type="date"
+                                id="publicationDate"
+                                class="date-input"
+                                aria-label="Publication date"
+                                title="Publication date"
+                            >
+                        </div>
+
+                        <div class="meta-row">
+                            <select id="articleCategory" class="category-select" aria-label="Article category">
+                                <option value="">Select category...</option>
+                                <option value="leadership">Leadership</option>
+                                <option value="management">Management</option>
+                                <option value="training">Training</option>
+                                <option value="strategy">Strategy</option>
+                                <option value="operations">Operations</option>
+                                <option value="safety">Safety</option>
+                            </select>
+                            <div class="word-count-live">
+                                <span id="liveWordCount">0 words</span>
+                            </div>
+                        </div>
+
+                        <textarea
+                            id="articleSummary"
+                            class="summary-input"
+                            placeholder="Brief article summary or excerpt (optional)..."
+                            rows="2"
+                            maxlength="300"
+                            aria-label="Article summary"
+                        ></textarea>
+                    </div>
+
+                    <!-- Rich text editor container -->
+                    <div class="editor-wrapper">
+                        <div id="quillEditor" class="quill-editor" aria-label="Article content editor"></div>
+                    </div>
+
+                    <!-- Editor status bar -->
+                    <div class="status-bar">
+                        <span id="wordCount" class="status-item">0 words</span>
+                        <span id="charCount" class="status-item">0 characters</span>
+                        <span id="lastSaved" class="status-item">Not saved</span>
+                        <span id="connectionStatus" class="status-item status-online">●</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar for content management and tools -->
+            <aside class="sidebar">
+
+                <!-- Article Management Panel -->
+                <div class="sidebar-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Article Manager</h3>
+                        <div class="panel-actions">
+                            <button id="refreshArticles" class="icon-btn" title="Refresh list">
+                                <span class="action-icon">🔄</span>
+                            </button>
+                            <button id="newArticleBtn" class="icon-btn" title="New article">
+                                <span class="action-icon">📄</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Search and Filter -->
+                    <div class="search-container">
+                        <input
+                            type="text"
+                            id="articleSearch"
+                            class="search-input"
+                            placeholder="Search articles..."
+                            aria-label="Search articles"
+                        >
+                        <select id="categoryFilter" class="filter-select" aria-label="Filter by category">
+                            <option value="">All Categories</option>
+                            <option value="leadership">Leadership</option>
+                            <option value="management">Management</option>
+                            <option value="training">Training</option>
+                            <option value="strategy">Strategy</option>
+                            <option value="operations">Operations</option>
+                            <option value="safety">Safety</option>
+                        </select>
+                    </div>
+
+                    <!-- Articles List -->
+                    <div class="articles-container">
+                        <div id="articlesList" class="articles-list">
+                            <p class="empty-state">No articles found</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Import/Export Panel -->
+                <div class="sidebar-panel">
+                    <h3 class="panel-title">Import/Export</h3>
+                    <div class="import-export-actions">
+                        <div class="action-group">
+                            <label class="action-label">Import</label>
+                            <button id="importText" class="action-btn">
+                                <span class="action-icon">📄</span>
+                                From Text
+                            </button>
+                            <input type="file" id="fileImport" accept=".txt,.json" style="display: none;">
+                        </div>
+
+                        <div class="action-group">
+                            <label class="action-label">Export Current</label>
+                            <button id="exportHTML" class="action-btn">
+                                <span class="action-icon">🌐</span>
+                                HTML
+                            </button>
+                            <button id="exportMarkdown" class="action-btn">
+                                <span class="action-icon">📝</span>
+                                Markdown
+                            </button>
+                            <button id="exportFlowtrack" class="action-btn">
+                                <span class="action-icon">🚀</span>
+                                Flowtrack.co
+                            </button>
+                            <button id="copyClean" class="action-btn">
+                                <span class="action-icon">📋</span>
+                                Copy Clean HTML
+                            </button>
+                        </div>
+
+                        <div class="action-group">
+                            <label class="action-label">Backup</label>
+                            <button id="backupAll" class="action-btn">
+                                <span class="action-icon">💾</span>
+                                All Articles (JSON)
+                            </button>
+                            <button id="restoreBackup" class="action-btn">
+                                <span class="action-icon">📥</span>
+                                Restore Backup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Panel -->
+                <div class="sidebar-panel">
+                    <h3 class="panel-title">Quick Actions</h3>
+                    <div class="quick-actions">
+                        <button id="insertTemplate" class="action-btn">
+                            <span class="action-icon">📋</span>
+                            Insert Template
+                        </button>
+                        <button id="previewArticle" class="action-btn">
+                            <span class="action-icon">👁️</span>
+                            Preview
+                        </button>
+                        <button id="formatCheck" class="action-btn">
+                            <span class="action-icon">✓</span>
+                            Format Check
+                        </button>
+                        <button id="duplicateArticle" class="action-btn">
+                            <span class="action-icon">📋</span>
+                            Duplicate Current
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Article Statistics -->
+                <div class="sidebar-panel">
+                    <h3 class="panel-title">Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value" id="paragraphCount">0</span>
+                            <span class="stat-label">Paragraphs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="readingTime">0 min</span>
+                            <span class="stat-label">Read Time</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="totalArticles">0</span>
+                            <span class="stat-label">Total Articles</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="storageUsed">0%</span>
+                            <span class="stat-label">Storage Used</span>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+        </main>
+
+        <!-- Footer with additional information -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Professional blog editor for leadership content creation
+                </p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Help</a>
+                    <a href="#" class="footer-link">Shortcuts</a>
+                    <a href="#" class="footer-link">About</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Load Quill.js JavaScript from CDN -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    <!-- Custom JavaScript modules -->
+    <script src="js/editor.js"></script>
+</body>
+</html>
