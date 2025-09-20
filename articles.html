@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leadership Articles - FLAME Leadership Hub</title>
+
+    <style>
+        /* Modern CSS Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* CSS Variables for ISON Branding */
+        :root {
+            --primary-color: #1e40af;
+            --primary-light: #3b82f6;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Search and Filter Section */
+        .search-section {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .category-filter {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            font-size: 0.875rem;
+            min-width: 150px;
+        }
+
+        .sort-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            font-size: 0.875rem;
+            min-width: 120px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .results-count {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .view-toggle {
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .view-btn {
+            padding: 0.5rem 0.75rem;
+            border: none;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .view-btn:last-child {
+            border-right: none;
+        }
+
+        .view-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Articles Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .articles-list {
+            display: none;
+        }
+
+        .articles-list.active {
+            display: block;
+        }
+
+        .articles-grid.active {
+            display: grid;
+        }
+
+        /* Article Card */
+        .article-card {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .article-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .article-header {
+            padding: 1.5rem 1.5rem 1rem;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-tertiary);
+            color: var(--primary-color);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-summary {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-footer {
+            padding: 1rem 1.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 1rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .article-author {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .article-date {
+            color: var(--text-muted);
+        }
+
+        .article-stats {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .read-time {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* List View */
+        .article-list-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .article-list-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .list-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            gap: 1rem;
+        }
+
+        .list-item-content {
+            flex: 1;
+        }
+
+        .list-item-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+            text-align: right;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .empty-text {
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--bg-tertiary);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .search-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .main-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .list-item-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .list-item-meta {
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+
+        /* Article Reader Modal */
+        .article-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .article-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+            z-index: 10;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-body h1, .modal-body h2, .modal-body h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .modal-body h1 {
+            font-size: 1.875rem;
+            margin-top: 0;
+        }
+
+        .modal-body p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .modal-body ul, .modal-body ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .modal-body blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🔥</div>
+                <div>
+                    <div class="logo-text">FLAME Leadership</div>
+                    <div class="logo-subtitle">Articles & Excellence</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="editor.html" class="btn btn-primary">
+                    <span>✏️</span>
+                    Write Article
+                </a>
+                <a href="admin.html" class="btn">
+                    <span>⚙️</span>
+                    Admin Panel
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">Leadership Excellence Library</h1>
+            <p class="hero-subtitle">
+                Discover insights, strategies, and wisdom from fire service leaders.
+                Build your leadership skills with articles focused on emergency management excellence.
+            </p>
+        </section>
+
+        <!-- Search and Filter -->
+        <section class="search-section">
+            <div class="search-grid">
+                <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    placeholder="Search articles by title, content, or author..."
+                >
+                <select class="category-filter" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="leadership">Leadership</option>
+                    <option value="management">Management</option>
+                    <option value="training">Training</option>
+                    <option value="strategy">Strategy</option>
+                    <option value="operations">Operations</option>
+                    <option value="safety">Safety</option>
+                    <option value="emergency-response">Emergency Response</option>
+                    <option value="team-building">Team Building</option>
+                    <option value="communication">Communication</option>
+                    <option value="decision-making">Decision Making</option>
+                </select>
+                <select class="sort-select" id="sortSelect">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="author">Author A-Z</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Stats and View Toggle -->
+        <section class="stats-bar">
+            <div class="results-count" id="resultsCount">
+                Loading articles...
+            </div>
+            <div class="view-toggle">
+                <button class="view-btn active" id="gridViewBtn" data-view="grid">
+                    <span>⊞</span> Grid
+                </button>
+                <button class="view-btn" id="listViewBtn" data-view="list">
+                    <span>☰</span> List
+                </button>
+            </div>
+        </section>
+
+        <!-- Articles Container -->
+        <section id="articlesContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                Loading articles...
+            </div>
+        </section>
+    </main>
+
+    <!-- Article Reader Modal -->
+    <div class="article-modal" id="articleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Article content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * FLAME Leadership Articles Reader
+         * Displays published articles in a beautiful, searchable interface
+         */
+        class ArticlesReader {
+            constructor() {
+                this.articles = [];
+                this.filteredArticles = [];
+                this.currentView = 'grid';
+                this.storageKey = 'leadershipBlogArticles'; // Same as admin editor
+
+                this.initializeElements();
+                this.setupEventListeners();
+                this.loadArticles();
+            }
+
+            initializeElements() {
+                this.searchInput = document.getElementById('searchInput');
+                this.categoryFilter = document.getElementById('categoryFilter');
+                this.sortSelect = document.getElementById('sortSelect');
+                this.resultsCount = document.getElementById('resultsCount');
+                this.articlesContainer = document.getElementById('articlesContainer');
+                this.gridViewBtn = document.getElementById('gridViewBtn');
+                this.listViewBtn = document.getElementById('listViewBtn');
+                this.articleModal = document.getElementById('articleModal');
+                this.modalBody = document.getElementById('modalBody');
+                this.modalClose = document.getElementById('modalClose');
+            }
+
+            setupEventListeners() {
+                // Search and filter
+                this.searchInput.addEventListener('input', () => this.filterArticles());
+                this.categoryFilter.addEventListener('change', () => this.filterArticles());
+                this.sortSelect.addEventListener('change', () => this.sortAndRenderArticles());
+
+                // View toggle
+                this.gridViewBtn.addEventListener('click', () => this.switchView('grid'));
+                this.listViewBtn.addEventListener('click', () => this.switchView('list'));
+
+                // Modal controls
+                this.modalClose.addEventListener('click', () => this.closeModal());
+                this.articleModal.addEventListener('click', (e) => {
+                    if (e.target === this.articleModal) this.closeModal();
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') this.closeModal();
+                    if (e.key === '/' && !e.target.matches('input, textarea')) {
+                        e.preventDefault();
+                        this.searchInput.focus();
+                    }
+                });
+            }
+
+            loadArticles() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    this.articles = stored ? JSON.parse(stored) : [];
+
+                    // Add sample articles if none exist
+                    if (this.articles.length === 0) {
+                        this.articles = this.getSampleArticles();
+                    }
+
+                    this.filteredArticles = [...this.articles];
+                    this.sortAndRenderArticles();
+                    this.updateResultsCount();
+                } catch (error) {
+                    console.error('Error loading articles:', error);
+                    this.showError('Failed to load articles');
+                }
+            }
+
+            getSampleArticles() {
+                return [
+                    {
+                        id: 'sample1',
+                        title: 'Leadership Under Pressure: Lessons from the Fireground',
+                        author: 'Chief Sarah Martinez',
+                        category: 'leadership',
+                        summary: 'Exploring how emergency situations test leadership skills and what we can learn from high-pressure decision making.',
+                        htmlContent: '<h2>Introduction</h2><p>Leadership in the fire service is tested most severely during emergency operations. When lives are on the line and every second counts, true leadership qualities emerge.</p><h3>Key Leadership Principles</h3><ul><li><strong>Stay Calm</strong> - Your team looks to you for stability</li><li><strong>Communicate Clearly</strong> - Confusion can be deadly</li><li><strong>Make Decisive Choices</strong> - Hesitation costs precious time</li><li><strong>Trust Your Training</strong> - Fall back on proven methods</li></ul><h3>Real-World Application</h3><p>During a recent structure fire, quick thinking and clear communication saved multiple lives. The incident commander\'s ability to assess, decide, and direct made all the difference.</p><blockquote>"The best leaders are forged in the crucible of emergency response." - Chief Martinez</blockquote>',
+                        publicationDate: '2024-01-15',
+                        createdAt: '2024-01-15T10:00:00Z',
+                        wordCount: 245
+                    },
+                    {
+                        id: 'sample2',
+                        title: 'Building Trust in Your Fire Company',
+                        author: 'Captain Mike Johnson',
+                        category: 'team-building',
+                        summary: 'Trust is the foundation of effective teamwork. Learn practical strategies for building and maintaining trust within your fire company.',
+                        htmlContent: '<h2>The Foundation of Teamwork</h2><p>Trust isn\'t built overnight, but it can be lost in an instant. In the fire service, trust literally means the difference between life and death.</p><h3>Building Trust</h3><ol><li><strong>Consistency</strong> - Be reliable in your actions and decisions</li><li><strong>Competence</strong> - Maintain your skills and knowledge</li><li><strong>Character</strong> - Do what\'s right, even when no one is watching</li><li><strong>Communication</strong> - Be honest and transparent</li></ol><h3>Maintaining Trust</h3><p>Trust requires constant nurturing. Regular training, open communication, and accountability are essential elements.</p>',
+                        publicationDate: '2024-01-10',
+                        createdAt: '2024-01-10T14:30:00Z',
+                        wordCount: 189
+                    },
+                    {
+                        id: 'sample3',
+                        title: 'Strategic Planning for Fire Department Excellence',
+                        author: 'Chief Robert Chen',
+                        category: 'strategy',
+                        summary: 'Effective strategic planning ensures your department is prepared for current and future challenges. Learn a systematic approach to strategic development.',
+                        htmlContent: '<h2>The Importance of Strategic Planning</h2><p>Fire departments face evolving challenges that require strategic thinking and long-term planning.</p><h3>Strategic Planning Process</h3><ol><li><strong>Assessment</strong> - Evaluate current capabilities and resources</li><li><strong>Vision</strong> - Define where you want to be</li><li><strong>Goals</strong> - Set specific, measurable objectives</li><li><strong>Implementation</strong> - Create actionable plans</li><li><strong>Evaluation</strong> - Monitor progress and adjust</li></ol><p>Strategic planning isn\'t just for large departments - every fire service organization benefits from thoughtful planning.</p>',
+                        publicationDate: '2024-01-05',
+                        createdAt: '2024-01-05T09:15:00Z',
+                        wordCount: 156
+                    }
+                ];
+            }
+
+            filterArticles() {
+                const searchTerm = this.searchInput.value.toLowerCase();
+                const selectedCategory = this.categoryFilter.value;
+
+                this.filteredArticles = this.articles.filter(article => {
+                    const matchesSearch = !searchTerm ||
+                        article.title.toLowerCase().includes(searchTerm) ||
+                        article.author.toLowerCase().includes(searchTerm) ||
+                        article.summary.toLowerCase().includes(searchTerm) ||
+                        this.stripHtml(article.htmlContent).toLowerCase().includes(searchTerm);
+
+                    const matchesCategory = !selectedCategory || article.category === selectedCategory;
+
+                    return matchesSearch && matchesCategory;
+                });
+
+                this.sortAndRenderArticles();
+                this.updateResultsCount();
+            }
+
+            sortAndRenderArticles() {
+                const sortBy = this.sortSelect.value;
+
+                this.filteredArticles.sort((a, b) => {
+                    switch (sortBy) {
+                        case 'newest':
+                            return new Date(b.createdAt || b.publicationDate) - new Date(a.createdAt || a.publicationDate);
+                        case 'oldest':
+                            return new Date(a.createdAt || a.publicationDate) - new Date(b.createdAt || b.publicationDate);
+                        case 'title':
+                            return a.title.localeCompare(b.title);
+                        case 'author':
+                            return a.author.localeCompare(b.author);
+                        default:
+                            return 0;
+                    }
+                });
+
+                this.renderArticles();
+            }
+
+            renderArticles() {
+                if (this.filteredArticles.length === 0) {
+                    this.articlesContainer.innerHTML = this.getEmptyState();
+                    return;
+                }
+
+                const articlesHTML = this.currentView === 'grid'
+                    ? this.renderGridView()
+                    : this.renderListView();
+
+                this.articlesContainer.innerHTML = articlesHTML;
+
+                // Add click listeners to articles
+                this.articlesContainer.querySelectorAll('[data-article-id]').forEach(element => {
+                    element.addEventListener('click', () => {
+                        const articleId = element.dataset.articleId;
+                        this.openArticle(articleId);
+                    });
+                });
+            }
+
+            renderGridView() {
+                return `
+                    <div class="articles-grid active">
+                        ${this.filteredArticles.map(article => this.renderArticleCard(article)).join('')}
+                    </div>
+                `;
+            }
+
+            renderListView() {
+                return `
+                    <div class="articles-list active">
+                        ${this.filteredArticles.map(article => this.renderArticleListItem(article)).join('')}
+                    </div>
+                `;
+            }
+
+            renderArticleCard(article) {
+                const readingTime = Math.ceil((article.wordCount || 0) / 200);
+                const date = new Date(article.publicationDate || article.createdAt).toLocaleDateString();
+
+                return `
+                    <div class="article-card" data-article-id="${article.id}">
+                        <div class="article-header">
+                            <div class="article-category">${this.formatCategory(article.category)}</div>
+                            <h3 class="article-title">${this.escapeHtml(article.title)}</h3>
+                            <p class="article-summary">${this.escapeHtml(article.summary || '')}</p>
+                        </div>
+                        <div class="article-footer">
+                            <div class="article-meta">
+                                <span class="article-author">${this.escapeHtml(article.author || 'Unknown Author')}</span>
+                                <span class="article-date">${date}</span>
+                            </div>
+                            <div class="article-stats">
+                                <span class="read-time">
+                                    <span>📖</span>
+                                    ${readingTime} min read
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderArticleListItem(article) {
+                const readingTime = Math.ceil((article.wordCount || 0) / 200);
+                const date = new Date(article.publicationDate || article.createdAt).toLocaleDateString();
+
+                return `
+                    <div class="article-list-item" data-article-id="${article.id}">
+                        <div class="list-item-header">
+                            <div class="list-item-content">
+                                <div class="article-category">${this.formatCategory(article.category)}</div>
+                                <h3 class="article-title">${this.escapeHtml(article.title)}</h3>
+                                <p class="article-summary">${this.escapeHtml(article.summary || '')}</p>
+                            </div>
+                            <div class="list-item-meta">
+                                <div class="article-author">${this.escapeHtml(article.author || 'Unknown Author')}</div>
+                                <div class="article-date">${date}</div>
+                                <div class="read-time">${readingTime} min read</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            switchView(view) {
+                this.currentView = view;
+
+                // Update button states
+                this.gridViewBtn.classList.toggle('active', view === 'grid');
+                this.listViewBtn.classList.toggle('active', view === 'list');
+
+                // Re-render articles
+                this.renderArticles();
+            }
+
+            openArticle(articleId) {
+                const article = this.articles.find(a => a.id === articleId);
+                if (!article) return;
+
+                const date = new Date(article.publicationDate || article.createdAt).toLocaleDateString();
+                const readingTime = Math.ceil((article.wordCount || 0) / 200);
+
+                this.modalBody.innerHTML = `
+                    <div class="article-category">${this.formatCategory(article.category)}</div>
+                    <h1>${this.escapeHtml(article.title)}</h1>
+                    <div class="article-meta" style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+                        <span class="article-author">By ${this.escapeHtml(article.author || 'Unknown Author')}</span>
+                        <span style="margin: 0 1rem; color: var(--text-muted);">•</span>
+                        <span class="article-date">${date}</span>
+                        <span style="margin: 0 1rem; color: var(--text-muted);">•</span>
+                        <span class="read-time">${readingTime} min read</span>
+                    </div>
+                    <div class="article-content">
+                        ${article.htmlContent || '<p>No content available.</p>'}
+                    </div>
+                `;
+
+                this.articleModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            closeModal() {
+                this.articleModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            updateResultsCount() {
+                const total = this.articles.length;
+                const filtered = this.filteredArticles.length;
+
+                if (total === 0) {
+                    this.resultsCount.textContent = 'No articles found';
+                } else if (filtered === total) {
+                    this.resultsCount.textContent = `Showing all ${total} articles`;
+                } else {
+                    this.resultsCount.textContent = `Showing ${filtered} of ${total} articles`;
+                }
+            }
+
+            getEmptyState() {
+                const hasSearch = this.searchInput.value || this.categoryFilter.value;
+
+                if (hasSearch) {
+                    return `
+                        <div class="empty-state">
+                            <div class="empty-icon">🔍</div>
+                            <h3 class="empty-title">No articles found</h3>
+                            <p class="empty-text">Try adjusting your search criteria or browse all articles.</p>
+                            <button class="btn" onclick="articlesReader.clearFilters()">Clear Filters</button>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="empty-state">
+                            <div class="empty-icon">📚</div>
+                            <h3 class="empty-title">No articles published yet</h3>
+                            <p class="empty-text">Start creating leadership content to build your knowledge library.</p>
+                            <a href="editor.html" class="btn btn-primary">Write First Article</a>
+                        </div>
+                    `;
+                }
+            }
+
+            clearFilters() {
+                this.searchInput.value = '';
+                this.categoryFilter.value = '';
+                this.filterArticles();
+            }
+
+            showError(message) {
+                this.articlesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">⚠️</div>
+                        <h3 class="empty-title">Error</h3>
+                        <p class="empty-text">${message}</p>
+                        <button class="btn" onclick="location.reload()">Retry</button>
+                    </div>
+                `;
+            }
+
+            formatCategory(category) {
+                if (!category) return 'General';
+                return category
+                    .split('-')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+            }
+
+            stripHtml(html) {
+                const div = document.createElement('div');
+                div.innerHTML = html;
+                return div.textContent || div.innerText || '';
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize the articles reader
+        let articlesReader;
+        document.addEventListener('DOMContentLoaded', () => {
+            articlesReader = new ArticlesReader();
+        });
+    </script>
+</body>
+</html>
