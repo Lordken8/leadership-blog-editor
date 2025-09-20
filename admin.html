@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAME Leadership - Admin Access</title>
+    <style>
+        :root {
+            --primary-color: #1e40af;
+            --primary-light: #3b82f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e5e7eb;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .auth-container {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 3rem;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid var(--border-color);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: var(--error-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: var(--success-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .help-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .back-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo">
+            <div class="logo-icon">🔥</div>
+            <div class="logo-text">FLAME Leadership</div>
+            <div class="logo-subtitle">Admin Access Required</div>
+        </div>
+
+        <form id="authForm">
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <div class="form-group">
+                <label for="adminPassword" class="form-label">Admin Password</label>
+                <input
+                    type="password"
+                    id="adminPassword"
+                    class="form-input"
+                    placeholder="Enter admin password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">
+                Access Admin Panel
+            </button>
+        </form>
+
+        <div class="help-text">
+            This area is restricted to authorized administrators only.<br>
+            Contact the system administrator if you need access.
+        </div>
+
+        <div class="back-link">
+            <a href="articles.html">← Back to Articles</a>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Simple Authentication System for FLAME Leadership Editor
+         * Uses localStorage for session management
+         */
+        class AdminAuth {
+            constructor() {
+                // IMPORTANT: Change this password to something secure!
+                this.adminPasswordHash = this.hashPassword('FLAME2024!'); // Default password
+                this.sessionKey = 'flameAdminSession';
+                this.sessionDuration = 8 * 60 * 60 * 1000; // 8 hours
+
+                this.initializeElements();
+                this.setupEventListeners();
+                this.checkExistingSession();
+            }
+
+            initializeElements() {
+                this.form = document.getElementById('authForm');
+                this.passwordInput = document.getElementById('adminPassword');
+                this.submitBtn = document.getElementById('submitBtn');
+                this.errorMessage = document.getElementById('errorMessage');
+                this.successMessage = document.getElementById('successMessage');
+            }
+
+            setupEventListeners() {
+                this.form.addEventListener('submit', (e) => this.handleLogin(e));
+
+                // Allow Enter key to submit
+                this.passwordInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.handleLogin(e);
+                    }
+                });
+
+                // Auto-focus password field
+                this.passwordInput.focus();
+            }
+
+            async handleLogin(e) {
+                e.preventDefault();
+
+                const password = this.passwordInput.value.trim();
+
+                if (!password) {
+                    this.showError('Please enter the admin password');
+                    return;
+                }
+
+                this.submitBtn.disabled = true;
+                this.submitBtn.textContent = 'Verifying...';
+
+                // Simulate network delay for security
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                const passwordHash = this.hashPassword(password);
+
+                if (passwordHash === this.adminPasswordHash) {
+                    this.createSession();
+                    this.showSuccess('Access granted! Redirecting...');
+
+                    // Redirect to admin panel
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    this.showError('Invalid password. Access denied.');
+                    this.passwordInput.value = '';
+                    this.passwordInput.focus();
+                }
+
+                this.submitBtn.disabled = false;
+                this.submitBtn.textContent = 'Access Admin Panel';
+            }
+
+            createSession() {
+                const session = {
+                    authenticated: true,
+                    timestamp: Date.now(),
+                    expires: Date.now() + this.sessionDuration
+                };
+
+                localStorage.setItem(this.sessionKey, JSON.stringify(session));
+            }
+
+            checkExistingSession() {
+                try {
+                    const session = JSON.parse(localStorage.getItem(this.sessionKey));
+
+                    if (session && session.authenticated && Date.now() < session.expires) {
+                        // Valid session exists, redirect to admin
+                        this.showSuccess('Valid session found. Redirecting...');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1000);
+                    }
+                } catch (error) {
+                    // Invalid session data, continue with login
+                    localStorage.removeItem(this.sessionKey);
+                }
+            }
+
+            hashPassword(password) {
+                // Simple hash function - in production, use a proper cryptographic hash
+                let hash = 0;
+                for (let i = 0; i < password.length; i++) {
+                    const char = password.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32-bit integer
+                }
+                return hash.toString();
+            }
+
+            showError(message) {
+                this.errorMessage.textContent = message;
+                this.errorMessage.style.display = 'block';
+                this.successMessage.style.display = 'none';
+            }
+
+            showSuccess(message) {
+                this.successMessage.textContent = message;
+                this.successMessage.style.display = 'block';
+                this.errorMessage.style.display = 'none';
+            }
+        }
+
+        // Initialize authentication
+        document.addEventListener('DOMContentLoaded', () => {
+            new AdminAuth();
+        });
+
+        // Security: Clear password from memory
+        window.addEventListener('beforeunload', () => {
+            document.getElementById('adminPassword').value = '';
+        });
+    </script>
+</body>
+</html>
