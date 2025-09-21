@@ -294,6 +294,13 @@
             }
 
             checkExistingSession() {
+                // Allow bypassing session check with ?forceLogin parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('forceLogin') === 'true') {
+                    localStorage.removeItem(this.sessionKey);
+                    return;
+                }
+
                 try {
                     const session = JSON.parse(localStorage.getItem(this.sessionKey));
 
