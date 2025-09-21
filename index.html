@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Immediate redirect to working editor -->
+    <script>
+        // Immediate redirect to working editor.html since index.html has file loading issues
+        window.location.href = 'editor.html';
+    </script>
+
     <!-- Essential meta tags for responsive design and SEO -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,16 +22,8 @@
     <!-- Quill.js CDN for rich text editing -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
-    <!-- Redirect to working editor -->
-    <script>
-        // Redirect to working editor.html since index.html has file loading issues
-        if (window.location.pathname.includes('index.html')) {
-            window.location.href = 'editor.html';
-        }
-    </script>
-
-    <!-- Configuration -->
-    <script src="./config.js"></script>
+    <!-- Configuration - Disabled due to GitHub Pages issues -->
+    <!-- <script src="./config.js"></script> -->
 
     <!-- Custom CSS - External file disabled due to GitHub Pages issues -->
     <!-- <link rel="stylesheet" href="./css/styles.css"> -->
