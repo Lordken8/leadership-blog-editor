@@ -267,7 +267,7 @@
 
                     // Check if there's a specific redirect target
                     const urlParams = new URLSearchParams(window.location.search);
-                    const redirectTo = urlParams.get('redirect') || 'dashboard.html';
+                    const redirectTo = urlParams.get('redirect') || 'editor.html';
 
                     // Redirect to requested page
                     setTimeout(() => {
@@ -308,7 +308,7 @@
                         // Valid session exists, redirect to admin
                         this.showSuccess('Valid session found. Redirecting...');
                         setTimeout(() => {
-                            window.location.href = 'dashboard.html';
+                            window.location.href = 'editor.html';
                         }, 1000);
                     }
                 } catch (error) {
