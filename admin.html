@@ -298,9 +298,17 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.get('forceLogin') === 'true') {
                     localStorage.removeItem(this.sessionKey);
+                    console.log('Force login parameter detected, session cleared');
                     return;
                 }
 
+                // Always clear session for now to debug the issue
+                localStorage.removeItem(this.sessionKey);
+                console.log('Session cleared for debugging');
+                return;
+
+                // Temporarily disable automatic session check
+                /*
                 try {
                     const session = JSON.parse(localStorage.getItem(this.sessionKey));
 
@@ -315,6 +323,7 @@
                     // Invalid session data, continue with login
                     localStorage.removeItem(this.sessionKey);
                 }
+                */
             }
 
             hashPassword(password) {
