@@ -387,7 +387,8 @@
                 this.sessionKey = 'flameAdminSession';
                 this.storageKey = 'leadershipBlogArticles';
 
-                this.checkAuthentication();
+                // Add slight delay to allow session to be set from login
+                setTimeout(() => this.checkAuthentication(), 100);
                 this.loadDashboardData();
                 this.setupEventListeners();
             }
