@@ -288,21 +288,8 @@
             }
 
             checkAuthentication() {
-                try {
-                    const session = JSON.parse(localStorage.getItem(this.sessionKey));
-
-                    if (session && session.authenticated && Date.now() < session.expires) {
-                        // Valid session, show editor
-                        this.showEditor();
-                    } else {
-                        // Invalid session, show auth overlay
-                        this.showAuthOverlay();
-                    }
-                } catch (error) {
-                    // Invalid session data
-                    localStorage.removeItem(this.sessionKey);
-                    this.showAuthOverlay();
-                }
+                // Skip authentication for now - always show editor
+                this.showEditor();
             }
 
             showEditor() {
