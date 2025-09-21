@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAME Leadership Articles</title>
+    <style>
+        :root {
+            --primary-color: #1e40af;
+            --primary-light: #3b82f6;
+            --secondary-color: #64748b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: #ffffff;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Compact header for iframe */
+        .compact-header {
+            text-align: center;
+            padding: 1rem 0 2rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 2rem;
+        }
+
+        .compact-header h1 {
+            color: #1e40af;
+            font-size: 1.75rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .compact-header p {
+            color: #6b7280;
+            margin: 0.5rem 0 0 0;
+            font-size: 0.95rem;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: white;
+            font-size: 1rem;
+            min-width: 150px;
+        }
+
+        .clear-filters {
+            padding: 0.75rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .clear-filters:hover {
+            background: var(--primary-light);
+        }
+
+        .results-info {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Articles Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .article-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .article-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .article-category {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .article-meta {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .article-excerpt {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 2px dashed var(--border-color);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            margin: 2rem auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-md);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .close {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0.5rem;
+        }
+
+        .close:hover {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .article-card {
+                padding: 1.5rem;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                width: calc(100% - 2rem);
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content">
+        <!-- Compact header for iframe -->
+        <div class="compact-header">
+            <h1>🔥 FLAME Leadership Articles</h1>
+            <p>Fire Leadership and Management Excellence</p>
+        </div>
+
+        <!-- Search and Filter -->
+        <section class="search-section">
+            <div class="search-grid">
+                <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    placeholder="Search articles by title, content, or author..."
+                >
+                <select class="filter-select" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="leadership">Leadership</option>
+                    <option value="management">Management</option>
+                    <option value="training">Training</option>
+                    <option value="strategy">Strategy</option>
+                    <option value="operations">Operations</option>
+                    <option value="safety">Safety</option>
+                </select>
+                <button class="clear-filters" id="clearFilters">Clear Filters</button>
+            </div>
+            <div class="results-info" id="resultsInfo">Loading articles...</div>
+        </section>
+
+        <!-- Articles Grid -->
+        <div class="articles-grid" id="articlesGrid">
+            <div class="empty-state">
+                <h3>Loading Articles...</h3>
+                <p>Please wait while we load your leadership content.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Article Modal -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Article Title</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Article content will appear here...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let articles = [];
+        let filteredArticles = [];
+
+        // Sample articles for demonstration
+        const sampleArticles = [
+            {
+                id: '1',
+                title: 'Building Trust in High-Pressure Environments',
+                author: 'Chief John Martinez',
+                category: 'leadership',
+                excerpt: 'Explore how fire service leaders can build and maintain trust with their teams during critical incidents and everyday operations.',
+                content: '<h2>Building Trust in Emergency Services</h2><p>Trust is the foundation of effective leadership in the fire service. In high-pressure situations where lives are on the line, team members must have complete confidence in their leaders\' decisions and abilities.</p><p>This article explores practical strategies for building trust through consistent communication, demonstrating competence, and showing genuine care for team welfare.</p><h3>Key Strategies</h3><ul><li>Consistent communication</li><li>Leading by example</li><li>Admitting mistakes and learning from them</li><li>Showing genuine care for team members</li></ul>',
+                date: '2024-01-15',
+                readTime: '5 min read'
+            },
+            {
+                id: '2',
+                title: 'Effective Communication During Emergency Operations',
+                author: 'Captain Sarah Williams',
+                category: 'operations',
+                excerpt: 'Learn the critical communication strategies that can make the difference between successful and failed emergency operations.',
+                content: '<h2>Communication in Crisis</h2><p>Clear, concise communication is essential during emergency operations. This article outlines proven communication protocols and techniques that ensure critical information flows effectively through the chain of command.</p><h3>Communication Protocols</h3><ul><li>Radio procedures and best practices</li><li>Scene management communication</li><li>Information flow during incidents</li><li>Post-incident debriefing strategies</li></ul>',
+                date: '2024-01-20',
+                readTime: '7 min read'
+            },
+            {
+                id: '3',
+                title: 'Developing Future Fire Service Leaders',
+                author: 'Battalion Chief Robert Chen',
+                category: 'training',
+                excerpt: 'A comprehensive guide to mentoring and developing the next generation of fire service leaders through structured programs.',
+                content: '<h2>Leadership Development</h2><p>The future of the fire service depends on developing strong leaders at every level. This article presents a framework for identifying potential leaders and providing them with the skills and experience needed to excel.</p><h3>Development Framework</h3><ul><li>Identifying potential leaders</li><li>Mentorship programs</li><li>Leadership exercises and scenarios</li><li>Creating growth opportunities</li></ul>',
+                date: '2024-02-01',
+                readTime: '6 min read'
+            }
+        ];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadArticles();
+            setupEventListeners();
+        });
+
+        function loadArticles() {
+            // Try to load from localStorage, fallback to sample articles
+            const stored = localStorage.getItem('flame_articles');
+            if (stored) {
+                try {
+                    articles = JSON.parse(stored);
+                } catch (e) {
+                    articles = sampleArticles;
+                }
+            } else {
+                articles = sampleArticles;
+            }
+
+            filteredArticles = [...articles];
+            displayArticles();
+            updateResultsInfo();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', filterArticles);
+            document.getElementById('categoryFilter').addEventListener('change', filterArticles);
+            document.getElementById('clearFilters').addEventListener('click', clearFilters);
+        }
+
+        function filterArticles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+
+            filteredArticles = articles.filter(article => {
+                const matchesSearch = !searchTerm ||
+                    article.title.toLowerCase().includes(searchTerm) ||
+                    article.author.toLowerCase().includes(searchTerm) ||
+                    article.excerpt.toLowerCase().includes(searchTerm) ||
+                    article.content.toLowerCase().includes(searchTerm);
+
+                const matchesCategory = !categoryFilter || article.category === categoryFilter;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            displayArticles();
+            updateResultsInfo();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('categoryFilter').value = '';
+            filteredArticles = [...articles];
+            displayArticles();
+            updateResultsInfo();
+        }
+
+        function updateResultsInfo() {
+            const resultsInfo = document.getElementById('resultsInfo');
+            resultsInfo.textContent = `${filteredArticles.length} article${filteredArticles.length !== 1 ? 's' : ''} found`;
+        }
+
+        function displayArticles() {
+            const container = document.getElementById('articlesGrid');
+
+            if (filteredArticles.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Articles Found</h3>
+                        <p>Try adjusting your search criteria or clearing the filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredArticles.map(article => `
+                <div class="article-card">
+                    <div class="article-category">${article.category}</div>
+                    <h3 class="article-title">${escapeHtml(article.title)}</h3>
+                    <div class="article-meta">
+                        <span>By ${escapeHtml(article.author)}</span>
+                        <span>${article.date}</span>
+                        <span>${article.readTime}</span>
+                    </div>
+                    <div class="article-excerpt">${escapeHtml(article.excerpt)}</div>
+                    <a href="#" class="read-more" onclick="openArticle('${article.id}')">
+                        Read Article →
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        function openArticle(articleId) {
+            const article = articles.find(a => a.id === articleId);
+            if (!article) return;
+
+            document.getElementById('modalTitle').textContent = article.title;
+            document.getElementById('modalBody').innerHTML = `
+                <div style="margin-bottom: 1rem; color: #6b7280; font-size: 0.875rem;">
+                    By ${escapeHtml(article.author)} • ${article.date} • ${article.readTime}
+                </div>
+                ${article.content}
+            `;
+            document.getElementById('articleModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('articleModal').style.display = 'none';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('articleModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
