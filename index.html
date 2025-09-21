@@ -763,7 +763,7 @@
                 const session = JSON.parse(localStorage.getItem('flameAdminSession'));
 
                 if (!session || !session.authenticated || Date.now() >= session.expires) {
-                    // No valid session, redirect to login with return URL
+                    // No valid session, redirect to login and then to dashboard
                     setTimeout(() => {
                         window.location.href = 'admin.html?redirect=' + encodeURIComponent('dashboard.html');
                     }, 100);
