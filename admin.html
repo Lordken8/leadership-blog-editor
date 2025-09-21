@@ -263,16 +263,15 @@
 
                 if (passwordHash === this.adminPasswordHash) {
                     this.createSession();
-                    this.showSuccess('Access granted! Redirecting...');
+                    this.showSuccess('Access granted! Redirecting to editor...');
 
-                    // Check if there's a specific redirect target
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const redirectTo = urlParams.get('redirect') || 'editor.html';
+                    // Always redirect to editor.html for now
+                    console.log('Login successful, redirecting to editor.html');
 
-                    // Redirect to requested page
                     setTimeout(() => {
-                        window.location.href = redirectTo;
-                    }, 1500);
+                        console.log('Performing redirect to editor.html');
+                        window.location.href = 'editor.html';
+                    }, 2000);
                 } else {
                     this.showError('Invalid password. Access denied.');
                     this.passwordInput.value = '';
@@ -306,7 +305,8 @@
 
                     if (session && session.authenticated && Date.now() < session.expires) {
                         // Valid session exists, redirect to admin
-                        this.showSuccess('Valid session found. Redirecting...');
+                        this.showSuccess('Valid session found. Redirecting to editor...');
+                        console.log('Existing session found, redirecting to editor.html');
                         setTimeout(() => {
                             window.location.href = 'editor.html';
                         }, 1000);
